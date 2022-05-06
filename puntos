@@ -1,0 +1,110 @@
+object Main {
+  def main(args: Array[String]): Unit = {
+
+    //PUNTO1
+    println(punto1("mora","roma"))
+
+    //PUNTO2
+    println(punto2(3,4,5))
+
+    //PUNTO3
+    println(punto3(20))
+
+    //PUNTO4
+    println(punto4(List(1, 2, 3, 4), 3))
+
+    //PUNTO5
+    var n = 20
+    for (row <- 0 to n) {
+      for (col <- 0 to row)
+        print(punto5(col, row) + " ")
+      println()
+    }
+
+
+  }
+
+  def punto1(cadena1: String,cadena2: String): String ={
+
+    var t1 = cadena1.toCharArray
+    var t2 = cadena2.toCharArray
+    var bandera=1
+
+    t1= t1.sorted
+    t2= t2.sorted
+
+    if (t1.length == t2.length){
+
+      for( i <- 0 to t1.length-1){
+        if (t1(i)!=t2(i)){
+          bandera=0
+        }
+      }
+
+    }else{
+      bandera = 0
+    }
+
+
+    if (bandera == 1){
+      return ("Si son anagramas")
+    }else{
+      return ("No son anagramas")
+    }
+
+  } 
+  
+  def punto2(c1: Int,c2: Int,h: Int): String={
+    import scala.math
+    var bandera=1
+
+    if (math.pow(h,2) == math.pow(c1,2)+math.pow(c2,2)){
+
+       bandera = 1
+
+    }else{
+
+      bandera=0
+    }
+
+    if (bandera==1){
+
+      return("Los valores cumplen el teorema")
+    }else{
+
+      return("los valores no cumplen el teorema")
+    }
+
+
+  }
+
+  def factorial(numero: Int): Int = if (numero == 0) 1
+    else numero * factorial(numero - 1)
+
+  def punto3(n:Int): Double={
+    import scala.math
+
+    var suma = 0:Double
+    for( i <- 0 to n){
+      suma = suma+(math.pow(1,i)*(1/factorial(i)))
+    }
+    return (factorial(n)*suma)
+  }
+
+  def punto4[A](ls: List[A], k: Int): List[List[A]] = {
+
+    if (k == 0) List(Nil)
+    else ls match {
+      case Nil => List()
+      case h :: t => punto4(t, k) ++ punto4(t, k - 1).map(h :: _)
+    }
+
+  } 
+  
+  def punto5(c: Int, r: Int): Int = {
+    if (c == 0 || c == r) 1
+    else
+      punto5(c - 1, r - 1) + punto5(c, r - 1)
+  }
+
+}
